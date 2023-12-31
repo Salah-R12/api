@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  api:
+    image: my-api-api
+    build: .
+    ports:
+      - "8090:80"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://root:root@db:5432/myapi_db
+      APP_ENV: dev  
+    volumes:
+      - .:/var/www/html
+
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "49512:5432"
+    environment:
+     POSTGRES_USER: root
+     POSTGRES_PASSWORD: root
+     POSTGRES_DB: myapi_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
