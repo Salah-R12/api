@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Action\NotFoundAction;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AuthorRepository;
+use Doctrine\Common\Collections\Collection;
 
 #[ApiResource]
 #[ORM\Entity]

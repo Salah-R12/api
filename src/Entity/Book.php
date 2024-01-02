@@ -9,6 +9,7 @@ use ApiPlatform\Action\NotFoundAction;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\ApiResource;
+use Doctrine\Common\Collections\Collection;
 
 
 #[ApiResource]
@@ -23,8 +24,6 @@ class Book
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $author = null;
 
     #[ORM\Column(length: 255)]
     private ?string $isbn = null;
@@ -32,11 +31,11 @@ class Book
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $publishedDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\ManyToOne(targetEntity: Author::class, inversedBy: 'books', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Author $Author = null;
 
-    #[ORM\ManyToOne(inversedBy: 'books')]
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'books', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $Category = null;
 
@@ -53,18 +52,6 @@ class Book
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): static
-    {
-        $this->author = $author;
 
         return $this;
     }
@@ -101,6 +88,18 @@ class Book
     public function setCategory(?Category $Category): static
     {
         $this->Category = $Category;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?Author
+    {
+        return $this->Author;
+    }
+
+    public function setAuthor(?Author $Author): static
+    {
+        $this->Author = $Author;
 
         return $this;
     }
