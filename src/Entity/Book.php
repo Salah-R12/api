@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\Collection;
 class Book
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $id = null;
 
@@ -38,6 +38,11 @@ class Book
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'books', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $Category = null;
+
+    #[ORM\ManyToOne(targetEntity: Publisher::class, cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Publisher $publisher = null;
+
 
     public function getId(): ?int
     {
@@ -100,6 +105,18 @@ class Book
     public function setAuthor(?Author $Author): static
     {
         $this->Author = $Author;
+
+        return $this;
+    }
+
+    public function getPublisher(): ?Publisher
+    {
+        return $this->publisher;
+    }
+
+    public function setPublisher(?Publisher $publisher): self
+    {
+        $this->publisher = $publisher;
 
         return $this;
     }

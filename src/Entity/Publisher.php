@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Publisher
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
+    #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $id = null;
 
@@ -25,6 +25,14 @@ class Publisher
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $address = null;
+
+    #[ORM\OneToMany(mappedBy: 'publisher', targetEntity: Book::class)]
+    private Collection $books;
+
+    public function __construct()
+    {
+        $this->books = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -53,5 +61,10 @@ class Publisher
         $this->address = $address;
 
         return $this;
+    }
+
+    public function getBooks(): Collection
+    {
+        return $this->books;
     }
 }
