@@ -10,7 +10,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\ApiResource;
 use Doctrine\Common\Collections\Collection;
-
+use Doctrine\Common\Collections\ArrayCollection;
 #[ApiResource]
 #[ORM\Entity]
 class Category

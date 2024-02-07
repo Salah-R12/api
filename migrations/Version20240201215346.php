@@ -7,7 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20240131100000 extends AbstractMigration
+final class Version20240201215346 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -16,6 +16,10 @@ final class Version20240131100000 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
+        $this->addSql('DELETE FROM book;');
+        $this->addSql('DELETE FROM author;');
+        $this->addSql('DELETE FROM category;');
+        $this->addSql('DELETE FROM publisher;');
 
         // Insérer des données dans la table 'publisher'
         for ($i = 1; $i <= 3; $i++) {
