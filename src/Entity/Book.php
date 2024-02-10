@@ -21,6 +21,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity]
 class Book
 {
+
+    #[ORM\Column(type: 'decimal', precision: 10, scale: 2,nullable: true)]
+    #[Groups(["read"])]
+    private ?float $price = null;
+
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -150,6 +155,19 @@ class Book
     public function setRating(?int $rating): self
     {
         $this->rating = $rating;
+
+        return $this;
+    }
+
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }
