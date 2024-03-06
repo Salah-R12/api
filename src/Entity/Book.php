@@ -24,7 +24,7 @@ class Book
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2,nullable: true)]
     #[Groups(["read"])]
-    private ?float $price = null;
+    private ?string $price = null;
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: "IDENTITY")]
@@ -58,7 +58,7 @@ class Book
     #[Groups(["read"])]
     private ?Category $Category = null;
 
-    #[ORM\ManyToOne(targetEntity: Publisher::class, cascade: ['persist'])]
+    #[ORM\ManyToOne(inversedBy: "books", targetEntity: Publisher::class)]
     #[ORM\JoinColumn(nullable: false)]
     #[Groups(["write","read"])]
     private ?Publisher $publisher = null;
@@ -160,12 +160,12 @@ class Book
     }
 
 
-    public function getPrice(): ?float
+    public function getPrice(): ?string
     {
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(string $price): self
     {
         $this->price = $price;
 

@@ -1,5 +1,7 @@
 # Utiliser une image PHP officielle comme base
 FROM php:8.2-apache
+# Après l'instruction FROM et les installations potentielles
+RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf
 
 # Mettre à jour les paquets et installer les extensions PHP nécessaires
 RUN apt-get update && apt-get install -y \

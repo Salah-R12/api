@@ -30,7 +30,7 @@ class Publisher
     #[Groups(["read", "write"])]
     private ?string $address = null;
 
-    #[ORM\OneToMany(mappedBy: 'publisher', targetEntity: Book::class)]
+    #[ORM\OneToMany(mappedBy: "publisher", targetEntity: Book::class)]
     #[Groups(["read"])]
     private Collection $books;
 
